@@ -13,8 +13,6 @@ jobs:
     steps:
       - name: 🚚 Get latest code
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: 📂 Sync files to Hosting
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
@@ -24,12 +22,10 @@ jobs:
           password: DYTrBQQmFtX4erXXc3cY
           port: 21
           server-dir: public_html/
-          local-dir: ./
-          # Tham số đúng để bỏ qua lỗi SSL trên một số host là 'security: loose'
-          security: loose
-          state-name: .ftp-deploy-sync-state.json
-          exclude: |
-            **/.git*
-            **/.git*/**
-            **/node_modules/**
-            .github/**
+          # Cấu hình quan trọng để sửa lỗi Timeout:
+          # Thử chuyển đổi giữa các mức độ bảo mật để tránh bị Firewall chặn socket
+          security: loose 
+          # Tăng thời gian chờ nếu kết nối mạng từ GitHub đến Host chậm
+          timeout: 60000 
+          # Loại bỏ các file log trạng thái để tránh tạo thêm socket kết nối
+          dangerous-clean-slate: false
