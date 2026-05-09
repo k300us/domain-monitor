@@ -1,0 +1,31 @@
+name: Deploy to Hosting via FTP
+
+on:
+  push:
+    branches:
+      - main  # Tự động chạy khi bạn push code vào nhánh main
+
+jobs:
+  web-deploy:
+    name: Deploy Source Code
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 📂 Sync files to Hosting
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.SFTP_HOST }}
+          username: ${{ secrets.SFTP_USERNAME }}
+          password: ${{ secrets.SFTP_PASSWORD }}
+          server-dir: ${{ secrets.SFTP_REMOTE_PATH }}/ # Sẽ đẩy vào public_html hoặc thư mục bạn cấu hình
+          local-dir: ./ # Đẩy toàn bộ code trong repo lên
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            .github/**
