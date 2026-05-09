@@ -21,11 +21,12 @@ jobs:
         with:
           server: pro.id.vn
           username: cuocsong675a
-          password: ${{ secrets.SFTP_PASSWORD }}
+          password: DYTrBQQmFtX4erXXc3cY
           port: 21
           server-dir: public_html/
           local-dir: ./
-          ftp-ssl: false
+          # Tham số đúng để bỏ qua lỗi SSL trên một số host là 'security: loose'
+          security: loose
           state-name: .ftp-deploy-sync-state.json
           exclude: |
             **/.git*
