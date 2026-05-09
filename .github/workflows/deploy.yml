@@ -3,8 +3,7 @@ name: Deploy to Hosting via FTP
 on:
   push:
     branches:
-      - main  # Tự động chạy khi bạn push code vào nhánh main
-
+      - main
 jobs:
   web-deploy:
     name: Deploy Source Code
@@ -22,8 +21,8 @@ jobs:
           server: ${{ secrets.SFTP_HOST }}
           username: ${{ secrets.SFTP_USERNAME }}
           password: ${{ secrets.SFTP_PASSWORD }}
-          server-dir: ${{ secrets.SFTP_REMOTE_PATH }}/ # Sẽ đẩy vào public_html hoặc thư mục bạn cấu hình
-          local-dir: ./ # Đẩy toàn bộ code trong repo lên
+          server-dir: ${{ secrets.SFTP_REMOTE_PATH }}/
+          local-dir: ./
           exclude: |
             **/.git*
             **/.git*/**
