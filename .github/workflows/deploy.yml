@@ -19,14 +19,13 @@ jobs:
       - name: 📂 Sync files to Hosting
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          server: ${{ secrets.SFTP_HOST }}
-          username: ${{ secrets.SFTP_USERNAME }}
+          server: pro.id.vn
+          username: cuocsong675a
           password: ${{ secrets.SFTP_PASSWORD }}
           port: 21
-          # Lưu ý: server-dir thường là public_html/ trên hosting Linux
           server-dir: public_html/
           local-dir: ./
-          # Chế độ này giúp đẩy code ổn định hơn trên FTP port 21
+          ftp-ssl: false
           state-name: .ftp-deploy-sync-state.json
           exclude: |
             **/.git*
